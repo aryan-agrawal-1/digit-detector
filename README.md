@@ -7,6 +7,8 @@ https://www.youtube.com/watch?v=w8yWXqWQYmU
 
 And then added a frontend so I could see how well the image detection worked on my writing.
 
+Datasets are not included (too large for git) - you can find them from the YT video above (they can be found on kaggle)
+
 ## Features
 - Neural network implemented with just NumPy
 - Web interface with camera/upload support
