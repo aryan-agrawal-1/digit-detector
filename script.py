@@ -3,9 +3,11 @@ import pandas as pd
 from matplotlib import pyplot as plt
 
 def init_params():
-    W1 = np.random.rand(10, 784) - 0.5 # Gives a value between -0.5 and 0.5
-    b1 = np.random.rand(10, 1) - 0.5
-    W2 = np.random.rand(10, 10) - 0.5
+    # Used to be 10 neurons - increased to 128 for better performance
+
+    W1 = np.random.randn(128, 784) * np.sqrt(2/784) # He initialization
+    b1 = np.random.rand(128, 1) - 0.5
+    W2 = np.random.randn(10, 128) * np.sqrt(2/128) # He initialization
     b2 = np.random.rand(10, 1) - 0.5
 
     return W1, b1, W2, b2
@@ -41,12 +43,12 @@ def back_prop(Z1, A1, Z2, A2, W2, Y, X):
     one_hot_Y = one_hot(Y)
     dZ2 = A2 - one_hot_Y
     dW2 = 1/m * dZ2.dot(A1.T)
-    db2 = 1/m * np.sum(dZ2)
+    db2 = 1/m * np.sum(dZ2, axis=1, keepdims=True)
 
     dZ1 = W2.T.dot(dZ2) * deriv_ReLu(Z1)
 
     dW1 = 1/m * dZ1.dot(X.T)
-    db1 = 1/m * np.sum(dZ1)
+    db1 = 1/m * np.sum(dZ1, axis=1, keepdims=True)
 
     return dW1, db1, dW2, db2
 
@@ -140,7 +142,7 @@ if __name__ == "__main__":
     _,m_train = X_train.shape
 
     # Train the model
-    W1, b1, W2, b2 = gradient_descent(X_train, Y_train, 500, 0.1)
+    W1, b1, W2, b2 = gradient_descent(X_train, Y_train, 1000, 0.3)
 
     # Save the trained model so we can use it later without retraining
     save_model(W1, b1, W2, b2)
