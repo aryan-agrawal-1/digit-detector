@@ -126,7 +126,7 @@ with gr.Blocks(title="MNIST Digit Recognition") as demo:
 if __name__ == "__main__":
     demo.launch(
         share=True,  # Set to True if you want a public link
-        server_name="127.0.0.1",
+        server_name="0.0.0.0",
         server_port=7860
     )
 
